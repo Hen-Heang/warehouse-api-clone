@@ -208,7 +208,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService, JwtUserDet
         Date currentDate = new Date();
         long diffInMillis = Math.abs(currentDate.getTime() - createdDate.getTime());
         long diffInMinutes = TimeUnit.MINUTES.convert(diffInMillis, TimeUnit.MILLISECONDS);
-        return diffInMinutes < 2;
+        return diffInMinutes < 3;
     }
 
     public Integer getUserIdByMail(String email) {

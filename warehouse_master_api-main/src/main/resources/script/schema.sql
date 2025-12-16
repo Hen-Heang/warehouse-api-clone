@@ -462,3 +462,41 @@ Where retailer_account_id =34
   AND (EXTRACT(YEAR FROM T.created_date) = 2022 AND EXTRACT(MONTH FROM T.created_date) = 5)
 group by TC.name
 order by TC.name DESC
+
+
+-- ===========================================Table==============================================
+-- Script for table
+CREATE TABLE IF NOT EXISTS tb_role (
+                                       id   SERIAL PRIMARY KEY,
+                                       name VARCHAR(50) NOT NULL UNIQUE
+    );
+
+CREATE TABLE IF NOT EXISTS tb_distributor_account (
+                                                      id           SERIAL PRIMARY KEY,
+                                                      role_id      INTEGER      NOT NULL REFERENCES tb_role (id),
+    email        VARCHAR(255) NOT NULL UNIQUE,
+    password     TEXT         NOT NULL,
+    created_date TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+    is_verified  BOOLEAN      DEFAULT FALSE,
+    is_active    BOOLEAN      DEFAULT TRUE
+    );
+
+CREATE TABLE IF NOT EXISTS tb_retailer_account (
+                                                   id           SERIAL PRIMARY KEY,
+                                                   role_id      INTEGER      NOT NULL REFERENCES tb_role (id),
+    email        VARCHAR(255) NOT NULL UNIQUE,
+    password     TEXT         NOT NULL,
+    created_date TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+    is_verified  BOOLEAN      DEFAULT FALSE,
+    is_active    BOOLEAN      DEFAULT TRUE
+    );
+
+INSERT INTO tb_role (id, name)
+VALUES (1, 'DISTRIBUTOR')
+    ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO tb_role (id, name)
+VALUES (2, 'RETAILER')
+    ON CONFLICT (id) DO NOTHING;

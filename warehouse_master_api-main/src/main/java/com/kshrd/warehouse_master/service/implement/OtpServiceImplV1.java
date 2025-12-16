@@ -33,7 +33,7 @@ public class OtpServiceImplV1 implements OtpService {
         Date currentDate = new Date();
         long diffInMillis = Math.abs(currentDate.getTime() - createdDate.getTime());
         long diffInMinutes = TimeUnit.MINUTES.convert(diffInMillis, TimeUnit.MILLISECONDS);
-        return diffInMinutes < 2;
+        return diffInMinutes < 3;
     }
 
 

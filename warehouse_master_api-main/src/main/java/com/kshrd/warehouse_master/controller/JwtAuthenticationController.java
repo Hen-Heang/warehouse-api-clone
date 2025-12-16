@@ -9,6 +9,7 @@ import com.kshrd.warehouse_master.model.appUser.AppUserRequest;
 import com.kshrd.warehouse_master.model.appUser.LoginResponse;
 import com.kshrd.warehouse_master.model.jwt.JwtChangePasswordRequest;
 import com.kshrd.warehouse_master.model.jwt.JwtRequest;
+import com.kshrd.warehouse_master.service.OtpService;
 import com.kshrd.warehouse_master.service.implement.JwtUserDetailsServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -38,11 +39,13 @@ public class JwtAuthenticationController {
     Date date;
 
     private final JwtUserDetailsServiceImpl jwtUserDetailsService;
+    private final OtpService otpService;
 
-    public JwtAuthenticationController(JwtTokenUtil jwtTokenUtil, AuthenticationManager authenticationManager, JwtUserDetailsServiceImpl jwtUserDetailsService) {
+    public JwtAuthenticationController(JwtTokenUtil jwtTokenUtil, AuthenticationManager authenticationManager, JwtUserDetailsServiceImpl jwtUserDetailsService, OtpService otpService) {
         this.jwtTokenUtil = jwtTokenUtil;
         this.authenticationManager = authenticationManager;
         this.jwtUserDetailsService = jwtUserDetailsService;
+        this.otpService = otpService;
     }
 
     @PostMapping("/register")
@@ -60,7 +63,8 @@ public class JwtAuthenticationController {
     @PostMapping(value = "/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         if(!(verifyEmail(authenticationRequest.getEmail()))){
-            throw new ConflictException("Email is not verified");
+            otpService.generateOtp(authenticationRequest.getEmail());
+            throw new ConflictException("Email is not verified. We just sent you a verification code.");
         }
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
