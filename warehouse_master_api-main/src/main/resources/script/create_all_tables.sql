@@ -1,3 +1,9 @@
+-- Warehouse Master full table creation script (PostgresSQL)
+-- Usage example:
+--   psql -U postgres -d dorms -f src/main/resources/script/create_all_tables.sql
+--
+-- This script is idempotent (`CREATE TABLE IF NOT EXISTS`) and safe to run multiple times.
+
 -- Core reference tables
 CREATE TABLE IF NOT EXISTS tb_role (
                                        id   SERIAL PRIMARY KEY,

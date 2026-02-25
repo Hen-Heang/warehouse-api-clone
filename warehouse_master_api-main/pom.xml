@@ -8,11 +8,11 @@
         <version>3.0.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.kshrd</groupId>
-    <artifactId>warehouse_master</artifactId>
+    <groupId>com.henheang</groupId>
+    <artifactId>stock-flow-commerce</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>warehouse_master</name>
-    <description>warehouse_master</description>
+    <name>Stock flow Commerce</name>
+    <description>Stock flow Commerce API for distributor-retailer wholesale operations</description>
     <properties>
         <java.version>17</java.version>
     </properties>

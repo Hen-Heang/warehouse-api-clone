@@ -1,4 +1,4 @@
-# Warehouse Master Application API
+# Stock flow Commerce API
 
 **Build with** Spring boot
 
@@ -21,7 +21,7 @@ https://spring.hanyeaktong.site/swagger-ui/index.html
    - Run the project by clicking the start button
    - Open browser and type http://localhost:8888/swagger-ui/index.html
 
-> ****Warehouse master**** is a B2B trading platform for business between Distributor and Retailer. Business owner would be able to trade between themself more efficiently. We are hoping to reduce time and complexity in doing businesss and promote a better way of trading.
+> **Stock flow Commerce** is a B2B trading platform for business between Distributor and Retailer. Business owners can trade more efficiently with lower operational complexity.
 
 ### What we have done
 

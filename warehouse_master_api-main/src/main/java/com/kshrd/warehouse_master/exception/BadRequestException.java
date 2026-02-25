@@ -1,7 +1,0 @@
-package com.kshrd.warehouse_master.exception;
-
-public class BadRequestException extends RuntimeException{
-    public BadRequestException(String message){
-        super(message);
-    }
-}
