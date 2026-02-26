@@ -16,10 +16,10 @@ public interface CategoryRepository {
 
     @Select("""
             SELECT * FROM tb_category
-            WHERE  name ILIKE '${name}';
+            WHERE name ILIKE #{name};
             """)
     @ResultMap("categoryMap")
-    Category getDuplicateCategory(String name);
+    Category getDuplicateCategory(@Param("name") String name);
 
     @Select("""
             INSERT INTO tb_category(name)
@@ -27,8 +27,8 @@ public interface CategoryRepository {
             RETURNING *
             """)
     @Results(id = "categoryMap", value = {
-            @Result(property = "categoryId", column = "id"),
-            @Result(property = "categoryName", column = "name"),
+            @Result(property = "id", column = "id"),
+            @Result(property = "name", column = "name"),
             @Result(property = "createdDate", column = "created_date"),
             @Result(property = "updatedDate", column = "updated_date")
     })
@@ -62,20 +62,20 @@ public interface CategoryRepository {
     List<Category> getAllCategory(Integer storeId, Integer pageNumber, Integer pageSize);
 
 
-    @Select("""
-            SELECT *
-            FROM tb_store_category
-            WHERE category_id = #{id}
-            AND store_id = #{storeId};
-            """)
-    @Result(property = "id", column = "category_id")
-    @Result(property = "name", column = "category_id",
-            one = @One(select = "com.henheang.stock_flow_commerce.repository.CategoryRepository.getCategoryNameById"))
-    @Result(property = "createdDate", column = "category_id",
-            one = @One(select = "com.henheang.stock_flow_commerce.repository.CategoryRepository.getCategoryCreatedDateById"))
-    @Result(property = "updatedDate", column = "category_id",
-            one = @One(select = "com.henheang.stock_flow_commerce.repository.CategoryRepository.getCategoryUpdatedById"))
-    Category getCategoryById(Integer id, Integer storeId);
+//    @Select("""
+//            SELECT *
+//            FROM tb_store_category
+//            WHERE category_id = #{id}
+//            AND store_id = #{storeId};
+//            """)
+//    @Result(property = "id", column = "category_id")
+//    @Result(property = "name", column = "category_id",
+//            one = @One(select = "com.henheang.stock_flow_commerce.repository.CategoryRepository.getCategoryNameById"))
+//    @Result(property = "createdDate", column = "category_id",
+//            one = @One(select = "com.henheang.stock_flow_commerce.repository.CategoryRepository.getCategoryCreatedDateById"))
+//    @Result(property = "updatedDate", column = "category_id",
+//            one = @One(select = "com.henheang.stock_flow_commerce.repository.CategoryRepository.getCategoryUpdatedById"))
+    Category getCategoryById(@Param("id") Integer id, @Param("storeId") Integer storeId);
 
 
     @Select("""
@@ -121,7 +121,7 @@ public interface CategoryRepository {
     void addCategoryToStore(Integer categoryId, Integer storeId);
 
 //    @Select("""
-//            select id from  tb_category
+//            select id from tb_category
 //            where name ILIKE #{name};
 //            """)
 //    Integer getCategoryIdByName(String name);
@@ -208,7 +208,7 @@ public interface CategoryRepository {
     @Select("""
             SELECT * FROM tb_store_category
             WHERE store_id = #{storeId}
-            AND category_id IN (SELECT id FROM tb_category WHERE name ILIKE '%${name}%')
+            AND category_id IN (SELECT id FROM tb_category WHERE name ILIKE CONCAT('%', #{name}, '%'))
             ORDER BY category_id ASC
             LIMIT #{pageSize}
             OFFSET #{pageSize} * (#{pageNumber} -1);
@@ -220,7 +220,10 @@ public interface CategoryRepository {
             one = @One(select = "com.henheang.stock_flow_commerce.repository.CategoryRepository.getCategoryCreatedDateById"))
     @Result(property = "updatedDate", column = "category_id",
             one = @One(select = "com.henheang.stock_flow_commerce.repository.CategoryRepository.getCategoryUpdatedById"))
-    List<Category> searchCategoryByName(String name, Integer storeId, Integer pageNumber, Integer pageSize);
+    List<Category> searchCategoryByName(@Param("name") String name,
+                                        @Param("storeId") Integer storeId,
+                                        @Param("pageNumber") Integer pageNumber,
+                                        @Param("pageSize") Integer pageSize);
 
     @Select("""
             SELECT exists(SELECT * FROM tb_store WHERE distributor_account_id = #{currentUserId});
