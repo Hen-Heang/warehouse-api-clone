@@ -8,10 +8,12 @@ import com.henheang.stock_flow_commerce.model.distributor.Distributor;
 import com.henheang.stock_flow_commerce.model.distributor.DistributorRequest;
 import com.henheang.stock_flow_commerce.repository.DistributorProfileRepository;
 import com.henheang.stock_flow_commerce.service.DistributorProfileService;
+import com.henheang.stock_flow_commerce.utils.DateTimeUtil;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -50,7 +52,7 @@ public class DistributorProfileServiceImp implements DistributorProfileService {
     //for insert additionalPhoneNumber into table tb_distributor_phone
 //    public void addAdditionalPhoneNumber(String phone){
 //
-//        Distributor userProfile= userProfileRepository.addAdditionalPhoneNumber(distributorRequest,additionalPhoneNumber);
+//        Distributor userProfile= userProfileRepository.addAdditionalPhoneNumber(distributorRequest, additionalPhoneNumber);
 //    }
 
     @Override
@@ -71,7 +73,7 @@ public class DistributorProfileServiceImp implements DistributorProfileService {
         )) {
             throw new BadRequestException("Please input valid gender. Available gender are 'male', 'female', or 'other'.");
         }
-        //insert distributor profile and return distributor info id
+        //insert a distributor profile and return distributor info id
         Distributor distributor = userProfileRepository.insertDistributorInfo(currentUserId, distributorRequest);
         if (distributor == null) {
             throw new InternalServerErrorException("Fail to insert user profile");

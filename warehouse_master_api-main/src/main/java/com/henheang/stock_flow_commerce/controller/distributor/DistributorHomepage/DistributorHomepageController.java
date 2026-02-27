@@ -1,5 +1,6 @@
 package com.henheang.stock_flow_commerce.controller.distributor.DistributorHomepage;
 
+import com.henheang.stock_flow_commerce.controller.BaseController;
 import com.henheang.stock_flow_commerce.model.ApiResponse;
 import com.henheang.stock_flow_commerce.model.appUser.AppUser;
 import com.henheang.stock_flow_commerce.model.distributor.DistributorHomepage;
@@ -11,10 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +22,7 @@ import java.util.Date;
 @Tag(name = "Distributor Homepage Controller")
 @RequestMapping("${base.distributor.v1}order_activities")
 @SecurityRequirement(name = "bearer")
-public class DistributorHomepageController {
+public class DistributorHomepageController extends BaseController {
 
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Date date;

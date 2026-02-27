@@ -3,7 +3,6 @@ package com.henheang.stock_flow_commerce.repository;
 import com.henheang.stock_flow_commerce.model.distributor.Distributor;
 import com.henheang.stock_flow_commerce.model.distributor.DistributorRequest;
 import org.apache.ibatis.annotations.*;
-
 import java.util.List;
 
 @Mapper
